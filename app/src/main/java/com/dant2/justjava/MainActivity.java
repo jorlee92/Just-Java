@@ -21,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
     int quantity = 0;
     boolean hasWhippedCreme = false;
     CheckBox whippedCreamCheckBox;
+    CheckBox chocolateSyrupCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         whippedCreamCheckBox = (CheckBox) findViewById(R.id.check_whipped_cream);
+        chocolateSyrupCheckBox = (CheckBox) findViewById(R.id.check_chocolate_syrup);
     }
 
 
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayMessage(String message) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message + "\n Whipped cream = " + hasWhippedCreme);
+        priceTextView.setText(message + "\n Whipped cream = " + hasWhippedCreme + " \n Chocolate Syrup? " + chocolateSyrupCheckBox.isChecked());
     }
 
 
