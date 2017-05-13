@@ -9,9 +9,11 @@ package com.dant2.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import java.text.NumberFormat;
 /**
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     boolean hasWhippedCreme = false;
     CheckBox whippedCreamCheckBox;
     CheckBox chocolateSyrupCheckBox;
+    EditText nameTextBox;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         whippedCreamCheckBox = (CheckBox) findViewById(R.id.check_whipped_cream);
         chocolateSyrupCheckBox = (CheckBox) findViewById(R.id.check_chocolate_syrup);
+        nameTextBox = (EditText) findViewById(R.id.text_field_name);
+
     }
 
 
@@ -40,14 +46,18 @@ public class MainActivity extends AppCompatActivity {
     String priceMessage = "Free";
         priceMessage = priceMessage + "\nThank you!";
         hasWhippedCreme = whippedCreamCheckBox.isChecked();
+        userName = nameTextBox.getText().toString();
         displayMessage(priceMessage);
     }
     public void decrement(View view){
-        quantity--;
+        if(quantity > 0)
+            quantity--;
         display(quantity);
     }
     public void increment(View view) {
-        quantity++;
+        if(quantity < 100)
+            quantity++;
+
         display(quantity);
     }
     /**
@@ -70,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayMessage(String message) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message + "\n Whipped cream = " + hasWhippedCreme + " \n Chocolate Syrup? " + chocolateSyrupCheckBox.isChecked());
+        priceTextView.setText("Hello " + userName + "\n" +  message + "\n Whipped cream = " + hasWhippedCreme + " \n Chocolate Syrup? " + chocolateSyrupCheckBox.isChecked());
+        Log.v("Username", userName);
     }
 
 

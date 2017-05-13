@@ -11,6 +11,15 @@
     >
 
 
+    <EditText
+        android:id="@+id/text_field_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        />
+
     <TextView
         android:id="@+id/toppings_text_view"
         android:layout_width="match_parent"
