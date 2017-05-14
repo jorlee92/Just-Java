@@ -7,6 +7,7 @@
     tools:context="com.dant2.justjava.MainActivity"
     android:orientation="vertical"
     android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
     android:isScrollContainer="true"
     >
 
@@ -24,6 +25,7 @@
         android:id="@+id/toppings_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/HeaderTextStyle"
         android:text="Toppings" />
 
     <CheckBox
@@ -41,6 +43,7 @@
         android:id="@+id/quantity_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/HeaderTextStyle"
         android:text="Quantity" />
 
     <LinearLayout
@@ -59,7 +62,7 @@
             android:id="@+id/quantity_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2"
+            android:text="0"
             android:layout_marginLeft="8dp"
             android:textSize="16dp"
             android:textColor="@android:color/black"
@@ -77,6 +80,7 @@
         android:id="@+id/price_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/HeaderTextStyle"
         android:text="Price" />
 
     <TextView
@@ -91,4 +95,10 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:onClick="submitOrder"/>
+    <Button
+        android:id="@+id/button_email_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email Order"
+        android:onClick="emailOrder"/>
 </LinearLayout>

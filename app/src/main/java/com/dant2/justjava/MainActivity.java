@@ -7,25 +7,30 @@ package com.dant2.justjava;
  * package com.example.android.justjava;
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.text.NumberFormat;
+
+import static android.provider.LiveFolders.INTENT;
+
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
     int quantity = 0;
-    boolean hasWhippedCreme = false;
+    boolean hasWhippedCream = false;
+    boolean hasChocolateSyrup = false;
     CheckBox whippedCreamCheckBox;
     CheckBox chocolateSyrupCheckBox;
     EditText nameTextBox;
     String userName;
+    String [] orderEmail = {"orders@test.dant2.com"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
     String priceMessage = "Free";
         priceMessage = priceMessage + "\nThank you!";
-        hasWhippedCreme = whippedCreamCheckBox.isChecked();
+        hasWhippedCream = whippedCreamCheckBox.isChecked();
+        hasChocolateSyrup = chocolateSyrupCheckBox.isChecked();
+
         userName = nameTextBox.getText().toString();
         displayMessage(priceMessage);
     }
@@ -80,8 +87,35 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayMessage(String message) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText("Hello " + userName + "\n" +  message + "\n Whipped cream = " + hasWhippedCreme + " \n Chocolate Syrup? " + chocolateSyrupCheckBox.isChecked());
-        Log.v("Username", userName);
+        priceTextView.setText("Hello " + userName + "\n" +  generateMessage());
+    }
+    public void emailOrder(View v){
+        Intent sendOrder = new Intent(Intent.ACTION_SEND);
+        sendOrder.setType("*/*");
+        sendOrder.putExtra(Intent.EXTRA_EMAIL,orderEmail);
+        sendOrder.putExtra(Intent.EXTRA_SUBJECT, "Order for " + userName);
+        sendOrder.putExtra(Intent.EXTRA_TEXT,generateMessage());
+        if (sendOrder.resolveActivity(getPackageManager()) != null) {
+            startActivity(sendOrder);
+        }
+    }
+    private String generateMessage(){
+        String messageString = "Whipped Cream? " + hasWhippedCream;
+        messageString += "\nChocolate Syrup? " + hasChocolateSyrup;
+        messageString+= "\nPrice: " + generatePrice();
+
+        return messageString;
+    }
+    private int generatePrice(){
+        int calculatedPrice = 0;
+        if (hasWhippedCream){
+            calculatedPrice++;
+        }
+        if (hasChocolateSyrup){
+            calculatedPrice+=2;
+        }
+        calculatedPrice += (quantity * 2);
+        return calculatedPrice;
     }
 
 
